@@ -64,29 +64,27 @@ export const leerInput = async (message) => {
     return desc
 }
 
-export const showListTasks = async (listTasks) => {
-    const choices = listTasks.map((task, index) => {
+export const showListPlaces = async (listPlaces) => {
+    const choices = listPlaces.map((place, index) => {
         const idx = `${index + 1}`.green
-        const status = task.completadoEn
-        const ended = !!status ? `Completada`.green : `Pendiente`.red
         return {
-            value: task.id,
-            name: `${idx}. ${task.descripcion} :: ${ended}`,
+            value: place.id,
+            name: `${idx}. ${place.name}`,
         }
     })
     choices.unshift({
-        value: '0',
+        value: 0,
         name: '0. Cancelar',
     })
-    const tasksList = [
+    const placesList = [
         {
             type: 'list',
             name: 'selectedId',
-            message: 'Seleccione una tarea para borrar?',
+            message: 'Seleccione un lugar?',
             choices,
         },
     ]
-    const { selectedId } = await inquirer.prompt(tasksList)
+    const { selectedId } = await inquirer.prompt(placesList)
     return selectedId
 }
 
@@ -124,12 +122,3 @@ export const showMultiplesItems = async (listTasks) => {
     const { ids } = await inquirer.prompt(question)
     return ids
 }
-
-// export default {
-//     inquiererMenu,
-//     pausaInquirer,
-//     leerInput,
-//     showListTasks,
-//     confirm,
-//     showMultiplesItems,
-// }
